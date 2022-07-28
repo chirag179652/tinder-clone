@@ -6,9 +6,12 @@ import selenaImg from './assets/selena.PNG';
 import davidImg from './assets/degea.PNG';
 import { styled } from '@mui/system';
 import TinderCard from 'react-tinder-card';
+import './TinderCards.css';
 
 const TinderCardContainer = styled(Grid)(({ theme }) => ({
   justifyContent: 'center',
+  display: 'flex',
+  marginTop: '10vh',
 }));
 
 const TinderCards = () => {
@@ -22,7 +25,7 @@ const TinderCards = () => {
       picture: selenaImg,
     },
     {
-      name: 'Bruno Fernandes',
+      name: 'Bruno Miguel Borges Fernandes',
       picture: brunoImg,
     },
     {
@@ -30,7 +33,6 @@ const TinderCards = () => {
       picture: duaImg,
     },
   ]);
-
   const swiped = (direction, nameToDelete) => {
     console.log(' removing', nameToDelete);
     // setLastDirection(direction);
@@ -40,25 +42,41 @@ const TinderCards = () => {
     console.log(name, 'left the screen');
   };
   return (
-    <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+    <Grid
+      container
+      xs={12}
+      sx={{ justifyContent: 'center', marginTop: '2rem' }}
+    >
       <TinderCardContainer item xs={5}>
         {people.map((person) => {
-          <TinderCard
-            className="swipe"
-            key={person.name}
-            preventSwipe={['up', 'down']}
-            onSwipe={(dir) => swiped(dir, person.name)}
-            onCardLeftScreen={() => outOfFrame(person.name)}
-          >
-            <div
-              className="card"
-              style={{
-                backgroundImage: `url(${person.picuture})`,
-              }}
+          //console.log(person.name);
+          return (
+            <TinderCard
+              className="swipe"
+              key={person.name}
+              preventSwipe={['up', 'down']}
+              onSwipe={(dir) => swiped(dir, person.name)}
+              onCardLeftScreen={() => outOfFrame(person.name)}
             >
-              <h3>{person.name}</h3>
-            </div>
-          </TinderCard>;
+              <div
+                className="card"
+                style={{
+                  backgroundImage: `url(${person.picture})`,
+                }}
+              >
+                <h3
+                  style={{
+                    color: 'silver',
+                    position: 'absolute',
+                    margin: '10px',
+                    bottom: '0',
+                  }}
+                >
+                  {person.name}
+                </h3>
+              </div>
+            </TinderCard>
+          );
         })}
       </TinderCardContainer>
     </Grid>
